@@ -1,0 +1,84 @@
+redis-commander:
+  build: redis-commander 
+  container_name: redis-commander
+  links: 
+    - redis-cache:redis  
+  restart: always
+
+nginx-reverse: 
+     image: nginx:latest
+     container_name: nginx-reverse
+     ports:
+        - "443:443"
+     environment:
+        - URL_KIBANA=${nginx1}
+        - URL_REDIS=${nginx2}
+     volumes:
+        - /logstack/ELKstack/nginx/conf.d:/etc/nginx/conf.d
+        - /etc/ssl/private/cert.key:/certificate/cert.key
+        - /etc/ssl/private/cert.crt:/certificate/cert.crt
+     links:
+        - kibana-frontend:kibana-frontend
+        - redis-commander:redis-commander
+     restart: always      
+ 
+elasticsearch-central:
+     image: elasticsearch:2
+     container_name: elasticsearch-central
+     volumes:
+        - /logstack/ELKstack/elasticsearch/data:/usr/share/elasticsearch/data
+        - /logstack/ELKstack/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+     environment:
+        - ES_CLUSTERNAME=elasticco
+     command: elasticsearch
+     ports:
+        - "9200:9200"
+        - "9300:9300"
+     restart: always
+
+kibana-frontend:
+     image: kibana:latest
+     container_name: kibana-frontend
+     links:
+       - elasticsearch-central:elasticsearch
+     restart: always    
+
+redis-cache:
+     image: redis:latest
+     container_name: redis-cache
+     ports:
+        - "6379:6379"
+     restart: always
+
+logstash-central:
+     build: img_logstash/ 
+     container_name: logstash-central
+     ports:
+        - "25826:25826"
+        - "25826:25826/udp"
+     volumes:
+        - /logstack/ELKstack/logstash/central:/opt/logstash/conf.d
+        - /logstack/ELKstack/logstash/geoip:/geoip
+        - /logstack/ELKstack/logstash/dictionary:/dictionary
+     command: logstash -f /opt/logstash/conf.d     
+     links:
+       - redis-cache:redis
+       - elasticsearch-central:db
+     restart: always    
+
+logstash-agent:
+     build: img_logstash/
+     container_name: logstash-agent
+     ports:
+        - "25827:25827"
+        - "25827:25827/udp"
+        - "9995:9995/udp"
+     volumes:
+        - /logstack/ELKstack/logstash/agent:/opt/logstash/conf.d
+        - /logstack/ELKstack/logstash/dictionary:/dictionary
+     command: logstash -f /opt/logstash/conf.d
+     links:
+       - redis-cache:redis
+     restart: always
+
+

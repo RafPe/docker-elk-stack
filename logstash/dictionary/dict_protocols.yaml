@@ -1,0 +1,131 @@
+"0": IP
+"1": ICMP		# internet control message protocol
+"2": IGMP		# internet group management protocol
+"3": GGP		# gateway-gateway protocol
+"4": IP-ENCAP	# IP encapsulated in IP (officially ``IP'')
+"5": ST2		# ST2 datagram mode (RFC 1819)
+"6": TCP		# transmission control protocol
+"7": CBT		# CBT, Tony Ballardie <A.Ballardie@cs.ucl.ac.uk>
+"8": EGP		# exterior gateway protocol
+"9": IGP		# any private interior gateway
+"10": BBN-RCC-MON	# BBN RCC Monitoring
+"11": NVP-II		# Network Voice Protocol
+"12": PUP		# PARC universal packet protocol
+"13": ARGUS		# ARGUS
+"14": EMCON		# EMCON
+"15": XNET		# Cross Net Debugger
+"16": CHAOS		# Chaos
+"17": UDP		# user datagram protocol
+"18": MUX		# Multiplexing protocol
+"19": DCN-MEAS	# DCN Measurement Subsystems
+"20": HMP		# host monitoring protocol
+"21": PRM		# packet radio measurement protocol
+"22": XNS-IDP		# Xerox NS IDP
+"23": TRUNK-1		# Trunk-1
+"24": TRUNK-2		# Trunk-2
+"25": LEAF-1		# Leaf-1
+"26": LEAF-2		# Leaf-2
+"27": RDP		# "reliable datagram" protocol
+"28": IRTP		# Internet Reliable Transaction Protocol
+"29": ISO-TP4		# ISO Transport Protocol Class 4
+"30": NETBLT		# Bulk Data Transfer Protocol
+"31": MFE-NSP		# MFE Network Services Protocol
+"32": MERIT-INP	# MERIT Internodal Protocol
+"33": SEP		# Sequential Exchange Protocol
+"34": 3PC		# Third Party Connect Protocol
+"35": IDPR		# Inter-Domain Policy Routing Protocol
+"36": XTP		# Xpress Tranfer Protocol
+"37": DDP		# Datagram Delivery Protocol
+"38": IDPR-CMTP	# IDPR Control Message Transport Proto
+"39": TP++		# TP++ Transport Protocol
+"40": IL		  # IL Transport Protocol
+"41": IPV6		# ipv6
+"42": SDRP		# Source Demand Routing Protocol
+"43": IPV6-ROUTE	# routing header for ipv6
+"44": IPV6-FRAG	# fragment header for ipv6
+"45": IDRP		# Inter-Domain Routing Protocol
+"46": RSVP		# Resource ReSerVation Protocol
+"47": GRE		# Generic Routing Encapsulation
+"48": MHRP		# Mobile Host Routing Protocol
+"49": BNA		# BNA
+"50": ESP		# encapsulating security payload
+"51": AH		# authentication header
+"52": INLSP		# Integrated Net Layer Security TUBA
+"53": SWIPE		# IP with Encryption
+"54": NARP		# NBMA Address Resolution Protocol
+"55": MOBILE		# IP Mobility
+"56": TLSP		# Transport Layer Security Protocol
+"57": SKIP		# SKIP
+"58": IPV6-ICMP	# ICMP for IPv6
+"59": IPV6-NONXT	# no next header for ipv6
+"60": IPV6-OPTS	# destination options for ipv6
+"62": CFTP		# CFTP
+"64": SAT-EXPAK	# SATNET and Backroom EXPAK
+"65": KRYPTOLAN	# Kryptolan
+"66": RVD		# MIT Remote Virtual Disk Protocol
+"67": IPPC		# Internet Pluribus Packet Core
+"69": SAT-MON		# SATNET Monitoring
+"70": VISA		# VISA Protocol
+"71": IPCV		# Internet Packet Core Utility
+"72": CPNX		# Computer Protocol Network Executive
+"73": CPHB		# Computer Protocol Heart Beat
+"74": WSN		# Wang Span Network
+"75": PVP		# Packet Video Protocol
+"76": BR-SAT-MON	# Backroom SATNET Monitoring
+"77": SUN-ND		# SUN ND PROTOCOL-Temporary
+"78": WB-MON		# WIDEBAND Monitoring
+"79": WB-EXPAK	# WIDEBAND EXPAK
+"80": ISO-IP		# ISO Internet Protocol
+"81": VMTP		# Versatile Message Transport
+"82": SECURE-VMTP	# SECURE-VMTP
+"83": VINES		# VINES
+"84": TTP		# TTP
+"85": NSFNET-IGP	# NSFNET-IGP
+"86": DGP		# Dissimilar Gateway Protocol
+"87": TCF		# TCF
+"88": EIGRP		# Enhanced Interior Routing Protocol (Cisco)
+"89": OSPFIGP		# Open Shortest Path First IGP
+"90": Sprite-RPC	# Sprite RPC Protocol
+"91": LARP		# Locus Address Resolution Protocol
+"92": MTP		# Multicast Transport Protocol
+"93": AX.25		# AX.25 Frames
+"94": IPIP		# Yet Another IP encapsulation
+"95": MICP		# Mobile Internetworking Control Pro.
+"96": SCC-SP		# Semaphore Communications Sec. Pro.
+"97": ETHERIP		# Ethernet-within-IP Encapsulation
+"98": ENCAP		# Yet Another IP encapsulation
+"100": GMTP		# GMTP
+"101": IFMP		# Ipsilon Flow Management Protocol
+"102": PNNI		# PNNI over IP
+"103": PIM		# Protocol Independent Multicast
+"104": ARIS		# ARIS
+"105": SCPS		# SCPS
+"106": QNX		# QNX
+"107": A/N		# Active Networks
+"108": IPComp		# IP Payload Compression Protocol
+"109": SNP		# Sitara Networks Protocol
+"110": Compaq-Peer	# Compaq Peer Protocol
+"111": IPX-in-IP	# IPX in IP
+"112": VRRP		# Virtual Router Redundancy Protocol
+"113": PGM		# PGM Reliable Transport Protocol
+"115": L2TP		# Layer Two Tunneling Protocol
+"116": DDX		# D-II Data Exchange
+"117": IATP		# Interactive Agent Transfer Protocol
+"118": ST		# Schedule Transfer
+"119": SRP		# SpectraLink Radio Protocol
+"120": UTI		# UTI
+"121": SMP		# Simple Message Protocol
+"122": SM		# SM
+"123": PTP		# Performance Transparency Protocol
+"124": ISIS		# ISIS over IPv4
+"125": FIRE
+"126": CRTP		# Combat Radio Transport Protocol
+"127": CRUDP		# Combat Radio User Datagram
+"128": SSCOPMCE
+"129": IPLT
+"130": SPS		# Secure Packet Shield
+"131": PIPE		# Private IP Encapsulation within IP
+"132": SCTP		# Stream Control Transmission Protocol
+"133": FC		# Fibre Channel
+"254": DIVERT		# Divert pseudo-protocol [non IANA]
+
