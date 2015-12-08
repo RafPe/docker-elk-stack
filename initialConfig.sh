@@ -7,13 +7,12 @@ if [ $# -lt 1 ]; then
   exit
 fi
 
-
-sudo sed -i -- 's:_replaceme_:'"$dir"':g' ${dir}/docker-compose.yml
-sudo sed -i -- 's:_clustername_:'"$1"':g' ${dir}/docker-compose.yml
+export ESC_NAME=$1
 
 sudo mkdir -p logstash/geoip
 
 sudo curl -o logstash/geoip/GeoLiteCity.dat.gz  -O "http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz"
 
 sudo gunzip logstash/geoip/GeoLiteCity.dat.gz
+
 

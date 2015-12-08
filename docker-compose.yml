@@ -29,7 +29,7 @@ elasticsearch-central:
         - /logstack/ELKstack/elasticsearch/data:/usr/share/elasticsearch/data
         - /logstack/ELKstack/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
      environment:
-        - ES_CLUSTERNAME=elasticco
+        - ES_CLUSTERNAME=${ESC_NAME}
      command: elasticsearch
      ports:
         - "9200:9200"
