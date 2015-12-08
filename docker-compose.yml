@@ -10,11 +10,8 @@ nginx-reverse:
      container_name: nginx-reverse
      ports:
         - "443:443"
-     environment:
-        - URL_KIBANA=${nginx1}
-        - URL_REDIS=${nginx2}
      volumes:
-        - /logstack/ELKstack/nginx/conf.d:/etc/nginx/conf.d
+        - ${PWD}/nginx/conf.d:/etc/nginx/conf.d
         - /etc/ssl/private/cert.key:/certificate/cert.key
         - /etc/ssl/private/cert.crt:/certificate/cert.crt
      links:
@@ -26,8 +23,8 @@ elasticsearch-central:
      image: elasticsearch:2
      container_name: elasticsearch-central
      volumes:
-        - /logstack/ELKstack/elasticsearch/data:/usr/share/elasticsearch/data
-        - /logstack/ELKstack/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+        - ${PWD}/elasticsearch/data:/usr/share/elasticsearch/data
+        - ${PWD}/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
      environment:
         - ES_CLUSTERNAME=${ESC_NAME}
      command: elasticsearch
@@ -57,9 +54,9 @@ logstash-central:
         - "25826:25826"
         - "25826:25826/udp"
      volumes:
-        - /logstack/ELKstack/logstash/central:/opt/logstash/conf.d
-        - /logstack/ELKstack/logstash/geoip:/geoip
-        - /logstack/ELKstack/logstash/dictionary:/dictionary
+        - ${PWD}/logstash/central:/opt/logstash/conf.d
+        - ${PWD}/logstash/geoip:/geoip
+        - ${PWD}/logstash/dictionary:/dictionary
      command: logstash -f /opt/logstash/conf.d     
      links:
        - redis-cache:redis
@@ -74,8 +71,8 @@ logstash-agent:
         - "25827:25827/udp"
         - "9995:9995/udp"
      volumes:
-        - /logstack/ELKstack/logstash/agent:/opt/logstash/conf.d
-        - /logstack/ELKstack/logstash/dictionary:/dictionary
+        - ${PWD}/logstash/agent:/opt/logstash/conf.d
+        - ${PWD}/logstash/dictionary:/dictionary
      command: logstash -f /opt/logstash/conf.d
      links:
        - redis-cache:redis
