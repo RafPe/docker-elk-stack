@@ -9,6 +9,7 @@ nginx-reverse:
      image: nginx:latest
      container_name: nginx-reverse
      ports:
+        - "80:80"
         - "443:443"
      volumes:
         - ${PWD}/nginx/conf.d:/etc/nginx/conf.d
@@ -17,7 +18,18 @@ nginx-reverse:
      links:
         - kibana-frontend:kibana-frontend
         - redis-commander:redis-commander
+        - es-kopf:es-kopf
      restart: always      
+
+es-kopf:
+     image: lmenezes/elasticsearch-kopf:latest
+     container_name: es-kopf
+     environment:
+       - KOPF_ES_SERVERS=elasticsearch-central:9200
+       - KOPF_SERVER_NAME=es-kopf
+     links:
+       - elasticsearch-central:elasticsearch-central
+     restart: always
  
 elasticsearch-central:
      image: elasticsearch:2
