@@ -1,93 +1,82 @@
-redis-commander:
-  build: redis-commander 
-  container_name: redis-commander
-  links: 
-    - redis-cache:redis  
-  restart: always
+version: '2'
 
-nginx-reverse: 
-     image: nginx:latest
-     container_name: nginx-reverse
-     ports:
-        - "80:80"
-        - "443:443"
-     volumes:
-        - ${PWD}/nginx/conf.d:/etc/nginx/conf.d
-        - /etc/ssl/private/cert.key:/certificate/cert.key
-        - /etc/ssl/private/cert.crt:/certificate/cert.crt
-     links:
-        - kibana-frontend:kibana-frontend
-        - redis-commander:redis-commander
-        - es-kopf:es-kopf
-     restart: always      
+services:
+  nginx:
+       image: nginx:latest
+       container_name: nginx
+       ports:
+          - "80:80"
+          - "443:443"
+       volumes:
+          - ${PWD}/nginx/conf.d:/etc/nginx/conf.d
+       restart: always
+       logging:
+        driver: json-file
+        options:
+          max-size: "100m"
+          max-file: "3"
+          labels: "elasticsearch"
 
-es-kopf:
-     image: lmenezes/elasticsearch-kopf:latest
-     container_name: es-kopf
-     environment:
-       - KOPF_ES_SERVERS=elasticsearch-central:9200
-       - KOPF_SERVER_NAME=es-kopf
-     links:
-       - elasticsearch-central:elasticsearch-central
-     restart: always
- 
-elasticsearch-central:
-     image: elasticsearch:2
-     container_name: elasticsearch-central
-     volumes:
-        - ${PWD}/elasticsearch/data:/usr/share/elasticsearch/data
-        - ${PWD}/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-     environment:
-        - ES_CLUSTERNAME=${ESC_NAME}
-     command: elasticsearch
-     ports:
-        - "9200:9200"
-        - "9300:9300"
-     restart: always
+  es-kopf:
+       image: lmenezes/elasticsearch-kopf:latest
+       container_name: es-kopf
+       environment:
+         - KOPF_ES_SERVERS=elasticsearch:9200
+         - KOPF_SERVER_NAME=es-kopf
+       restart: always
+       logging:
+        driver: json-file
+        options:
+          max-size: "100m"
+          max-file: "3"
+          labels: "elasticsearch"
 
-kibana-frontend:
-     image: kibana:latest
-     container_name: kibana-frontend
-     links:
-       - elasticsearch-central:elasticsearch
-     restart: always    
+  elasticsearch:
+       image: elasticsearch:2
+       container_name: elasticsearch
+       volumes:
+          #- ${PWD}/elasticsearch/data:/usr/share/elasticsearch/data
+          - ${PWD}/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+       environment:
+          - ES_CLUSTERNAME='some-cluster'
+       command: elasticsearch
+       ports:
+          - "9200:9200"
+          - "9300:9300"
+       restart: always
+       logging:
+         driver: json-file
+         options:
+           max-size: "100m"
+           max-file: "3"
+           labels: "elasticsearch"
 
-redis-cache:
-     image: redis:latest
-     container_name: redis-cache
-     ports:
-        - "6379:6379"
-     restart: always
+  kibana:
+       image: kibana:latest
+       container_name: kibana
+       restart: always
+       environment:
+          - ELASTICSEARCH_URL=http://elasticsearch:9200
+       logging:
+         driver: json-file
+         options:
+           max-size: "50m"
+           max-file: "3"
+           labels: "kibana"
 
-logstash-central:
-     build: img_logstash/ 
-     container_name: logstash-central
-     ports:
-        - "25826:25826"
-        - "25826:25826/udp"
-     volumes:
-        - ${PWD}/logstash/central:/opt/logstash/conf.d
-        - ${PWD}/logstash/geoip:/geoip
-        - ${PWD}/logstash/dictionary:/dictionary
-     command: logstash -f /opt/logstash/conf.d     
-     links:
-       - redis-cache:redis
-       - elasticsearch-central:db
-     restart: always    
-
-logstash-agent:
-     build: img_logstash/
-     container_name: logstash-agent
-     ports:
-        - "25827:25827"
-        - "25827:25827/udp"
-        - "9995:9995/udp"
-     volumes:
-        - ${PWD}/logstash/agent:/opt/logstash/conf.d
-        - ${PWD}/logstash/dictionary:/dictionary
-     command: logstash -f /opt/logstash/conf.d
-     links:
-       - redis-cache:redis
-     restart: always
-
-
+  logstash:
+       build: docker-images/logstash
+       container_name: logstash
+       ports:
+          - "5504:5504"
+          - "5504:5504/udp"
+       volumes:
+          - ${PWD}/logstash/demo-logstash.conf:/opt/logstash/conf.d
+       command: logstash -f /opt/logstash/conf.d
+       restart: always
+       logging:
+         driver: json-file
+         options:
+           max-size: "50m"
+           max-file: "3"
+           labels: "logstash"
