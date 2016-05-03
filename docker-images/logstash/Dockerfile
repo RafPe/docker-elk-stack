@@ -1,7 +1,7 @@
 FROM logstash:2
 MAINTAINER RafPE
-RUN /opt/logstash/bin/plugin install logstash-filter-translate && \
-    /opt/logstash/bin/plugin install logstash-input-beats && \
+RUN /opt/logstash/bin/logstash-plugin install logstash-filter-translate && \
+    /opt/logstash/bin/logstash-plugin install logstash-input-beats && \
     mkdir /geoip && \
     curl -o /geoip/GeoLiteCity.dat.gz  -O "http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz" && \
     gunzip /geoip/GeoLiteCity.dat.gz && \
