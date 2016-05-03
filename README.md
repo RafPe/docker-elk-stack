@@ -54,5 +54,5 @@ Below you may find versions of this repo so if necessary you can refer to a spec
 ```shell
 git checkout tags/v2.0.0
 ```
-
+* v2.0.1 - Modified syntax for logstash plugin install
 * v2.0.0 - Initial release of ELK stack for compose v2
